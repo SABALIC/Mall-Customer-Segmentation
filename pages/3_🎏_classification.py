@@ -1,9 +1,23 @@
-import streamlit as st
+import streamlit as st 
+import pandas as pd
+from sklearn import BaseEstimator
+import pickle
 
 st.set_page_config(
     page_title="Classification",
     page_icon="📈",
 )
+
+pickled_model = pickle.load(open('model.pkl', 'rb'))
+
+
+
+
+
+
+
+
+
 
 st.header("Classification of the data")
 
@@ -33,7 +47,18 @@ occupation = st.selectbox("Occupation: ", ['Unemployed', 'Employee/Official', 'S
 settlement_size = st.radio("Settlement Size: ", ['Small City', 'Mid-size City', 'Big City'])
 
 
+# ---------------------- Query ---------------------------------------------------#
 
+query = {
+    'Sex' : sex,
+    'Marital status' : marital_status,	
+    'Education' : education,	
+    'Occupation': occupation,	
+    'Settlement size' : settlement_size
+}
+
+query = pd.DataFrame.from_dict(query)
+query
 
 
 predict = st.button("Classify")
