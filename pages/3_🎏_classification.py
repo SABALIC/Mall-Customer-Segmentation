@@ -1,14 +1,15 @@
 import streamlit as st 
 import pandas as pd
+import numpy as np
 from sklearn import BaseEstimator
-import pickle
+import joblib
 
 st.set_page_config(
     page_title="Classification",
     page_icon="📈",
 )
 
-pickled_model = pickle.load(open('model.pkl', 'rb'))
+pickled_model = joblib.load('model.pkl')
 
 
 
