@@ -3,4 +3,6 @@ pandas
 joblib
 plotly
 matplotlib
+sklearn
 PIL
+transform_and_scale

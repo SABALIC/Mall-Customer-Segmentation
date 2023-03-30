@@ -1,8 +1,9 @@
 import streamlit as st 
 import pandas as pd
 import numpy as np
-from sklearn import BaseEstimator
+from sklearn.base import BaseEstimator
 import joblib
+import transform_and_scale as ts
 
 st.set_page_config(
     page_title="Classification",
@@ -33,33 +34,50 @@ st.write("Choose Customer features to make classification based on clusters")
 
 # --------------------- INPUTS ----------------------------------------------#
 
-sex = st.radio("Sex: ", ['Male', 'Female'])
+col1, col2 = st.columns(2)
 
-marital_status = st.radio("Marital Status: ", ['Single', 'Non-Single'])
+# ------------ COL 1 - Categorical Features --------------------#
 
-age = st.slider("Age: ", 18, 100)
+sex = col1.radio("Sex: ", ['Male', 'Female'])
 
-education = st.selectbox("Education: ", ['No Education', 'High School', 'University', 'Graduate'])
+marital_status = col1.radio("Marital Status: ", ['Single', 'Non-Single'])
 
-income = st.slider("Income: ", 20000, 400000)
+settlement_size = col1.radio("Settlement Size: ", ['Small City', 'Mid-size City', 'Big City'])
 
-occupation = st.selectbox("Occupation: ", ['Unemployed', 'Employee/Official', 'Self-Employed/Management'])
+education = col1.selectbox("Education: ", ['No Education', 'High School', 'University', 'Graduate'])
 
-settlement_size = st.radio("Settlement Size: ", ['Small City', 'Mid-size City', 'Big City'])
+occupation = col1.selectbox("Occupation: ", ['Unemployed', 'Employee/Official', 'Self-Employed/Management'])
+
+
+
+# ----------- COL 2 - Numerical Features -----------------------#
+age = col2.slider("Age: ", 18, 100)
+age = ts.Age(age).transform_and_scale()
+
+income = col2.slider("Income: ", 20000, 400000)
+income = ts.Income(income).transform_and_scale()
+
+
+
+
 
 
 # ---------------------- Query ---------------------------------------------------#
 
 query = {
-    'Sex' : sex,
-    'Marital status' : marital_status,	
-    'Education' : education,	
-    'Occupation': occupation,	
-    'Settlement size' : settlement_size
+    'Income':[income],
+    'Age':[age],
+    'Sex' : [sex],
+    'Marital status' : [marital_status],	
+    'Education' : [education],	
+    'Occupation': [occupation],	
+    'Settlement size' : [settlement_size]
 }
 
 query = pd.DataFrame.from_dict(query)
-query
-
-
+print("QUERY", query)
 predict = st.button("Classify")
+
+if predict:
+    prediction = pickled_model.predict(query)
+    print("PREDICTION:", prediction)
