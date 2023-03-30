@@ -191,9 +191,7 @@ st.plotly_chart(fig)
 
 
 ###################################################
-st.sidebar.markdown("# Side Bar🎈")
-
-st.sidebar.radio("Enter age", ['Age', 'Mage'])
+st.sidebar.markdown("# Data")
 
 #################################################### hiding useless parts
 

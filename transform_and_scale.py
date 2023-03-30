@@ -3,7 +3,7 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('./segmentation_data.csv')
+data = pd.read_csv('segmentation_data.csv')
 
 
 
