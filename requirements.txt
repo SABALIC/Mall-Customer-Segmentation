@@ -4,5 +4,5 @@ joblib
 plotly
 matplotlib
 sklearn
-PIL == 1.1.7
+PIL == 1.2.3
 transform_and_scale
