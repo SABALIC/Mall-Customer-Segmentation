@@ -5,4 +5,3 @@ plotly
 matplotlib
 sklearn
 Pillow
-transform_and_scale
