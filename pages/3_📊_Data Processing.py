@@ -21,9 +21,9 @@ if transform_scale_data:
         time.sleep(3)
         st.dataframe(transform_and_scale_data)
 
-        st.write("Based on the analysis conducted [here](https://github.com/furbuz/Mall-Customer-Segmentation/blob/main/Customer_Segmentation_and_Classification.ipynb):")
-        st.subheader("The age has been transformed by :blue[Log Transformation]")
-        st.subheader("The age has been transformed by :blue[Power Transformation]")
+        st.write("The data has been cleaned, transformed and scaled based on the analysis conducted in the previous step.")
+        st.subheader("The Age has been transformed by :blue[Log Transformation]")
+        st.subheader("The Income has been transformed by :blue[Power Transformation]")
         st.subheader("After that, the entire dataset has been transformed by :red[MinMaxScaler()]")
 
 

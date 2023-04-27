@@ -13,7 +13,8 @@ st.set_page_config(
 )
 
 
-
+def divider():
+    return st.write("<hr>", unsafe_allow_html=True)
 
 
 
@@ -42,43 +43,10 @@ st.image(kmeans_image)
 
 st.subheader("Elbow method yields 6 as number of clusters")
 
-
-## -------------- PRINCIPAL COMPONENT ANALYSIS ----------------------------##
-st.header("The result of Principal Component Analysis yields such graph:")
-
-with st.expander("See Explanation"):
-  st.write("""
-    Principal Component Analysis (PCA) is a statistical technique used to analyze and summarize large datasets. 
-    In simpler terms, PCA is a way to simplify data and reduce noise by taking a large set of variables and summarizing them into fewer, more meaningful variables called principal components. 
-    These principal components represent the patterns of variability in the original dataset and can be used to visualize and analyze the data in a more efficient and effective way. 
-    Essentially, PCA helps us to understand the most important aspects of a dataset and make sense of complex information.
-  
-  """)
-  st.image("https://miro.medium.com/v2/resize:fit:596/1*QinDfRawRskupf4mU5bYSA.png")
+st.write("After determining the number of clusters, the model can be choosen.")
 
 
-X = pd.read_csv('classification_data.csv')
 
-
-pca = PCA(n_components = 3, random_state = 666)
-X_pca = pca.fit_transform(X)
-
-X_pca_df = pd.DataFrame(data = X_pca, columns = ['X1', 'X2', 'X3'])
-
-kmeans = KMeans(n_clusters = 6, random_state = 0).fit(X)
-
-labels = kmeans.labels_
-X_pca_df['Labels'] = labels
-
-X_pca_df['Labels'] = X_pca_df['Labels'].astype(str)
-
-fig = px.scatter_3d(X_pca_df, x='X1', y='X2', z='X3',
-              color=X_pca_df['Labels'])
-
-st.plotly_chart(fig)
-
-
-## ------------ END OF PRINCIPAL COMPONENT ANALYSIS --------------------##
 
 
 
@@ -185,6 +153,55 @@ if fun_button:
         - Relatively low or medium level income.
         """
       )
+
+
+
+      ## -------------- PRINCIPAL COMPONENT ANALYSIS ----------------------------##
+      divider()
+      st.write("Since the data has been clustering, PCA can be used to better understand and visualize the clusters.")
+
+      st.header("The result of Principal Component Analysis yields such graph:")
+
+      with st.expander("See Explanation"):
+        st.write("""
+          Principal Component Analysis (PCA) is a statistical technique used to analyze and summarize large datasets. 
+          In simpler terms, PCA is a way to simplify data and reduce noise by taking a large set of variables and summarizing them into fewer, more meaningful variables called principal components. 
+          These principal components represent the patterns of variability in the original dataset and can be used to visualize and analyze the data in a more efficient and effective way. 
+          Essentially, PCA helps us to understand the most important aspects of a dataset and make sense of complex information.
+        
+        """)
+        st.image("https://miro.medium.com/v2/resize:fit:596/1*QinDfRawRskupf4mU5bYSA.png")
+
+
+      X = pd.read_csv('classification_data.csv')
+
+
+      pca = PCA(n_components = 3, random_state = 666)
+      X_pca = pca.fit_transform(X)
+
+      X_pca_df = pd.DataFrame(data = X_pca, columns = ['X1', 'X2', 'X3'])
+
+      kmeans = KMeans(n_clusters = 6, random_state = 0).fit(X)
+
+      labels = kmeans.labels_
+      X_pca_df['Labels'] = labels
+
+      X_pca_df['Labels'] = X_pca_df['Labels'].astype(str)
+
+      fig = px.scatter_3d(X_pca_df, x='X1', y='X2', z='X3',
+                    color=X_pca_df['Labels'])
+
+      st.plotly_chart(fig)
+      divider()
+
+      st.write("With the help of PCA, 7 original features has been dropped to 3 features, as X1, X2, X3")
+      st.write("The chart above shows how clusters seem in relation to these features")
+
+      ## ------------ END OF PRINCIPAL COMPONENT ANALYSIS --------------------##
+
+
+
+
 
 
 
